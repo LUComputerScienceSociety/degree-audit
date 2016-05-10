@@ -27,7 +27,12 @@ LUCoursesSchema = new SimpleSchema({
   },
   Course_Credits:{
     type: Number,
+    decimal: true,
     label:"Course Credit"
+  },
+  Course_Prerequisits:{
+    type: String,
+    label:"Course Prerequisits"
   },
   Course_Description:{
     type: String,
