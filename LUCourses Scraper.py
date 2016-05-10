@@ -48,19 +48,33 @@ for program in prog:
 
 ## ',' delimiter is recognized by excel.
 ## This will make a csv file in your working directory
+'''
 with open('eggs.csv', 'wb') as csvfile:
     spamwriter = csv.writer(csvfile, delimiter = ',',
                             quotechar = '|', quoting = csv.QUOTE_MINIMAL)
     spamwriter.writerow(['Spam']*5+['Baked Beans'])
     spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
-
+'''
 ##END EXAMPLE
 
 ##THIS IS EXAMPLE CODE FOR PULLING FROM A URL
-
+'''
 url = "http://timetable.lakeheadu.ca/2016SS_UG_TBAY/algo.html"
 page = html.fromstring(urllib.urlopen(url).read())
 
-print html.tostring(page)
+print page.xpath('//tr/td//text()')
+'''
+#print html.tostring(page)
 
 ##END EXAMPLE
+
+##The actual script:
+with open('LUCourses.csv', 'wb') as csvfile:
+    for program in prog:
+        url = "http://timetable.lakeheadu.ca/2016SS_UG_TBAY/" + program + ".html"
+        page = html.fromstring(urllib.urlopen(url).read())
+
+        data = page.xpath('//tr/td//text()')
+        writer = csv.writer(csvfile, delimiter = ',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
+        writer.writerow(data)
+
