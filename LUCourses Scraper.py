@@ -48,6 +48,7 @@ for program in prog:
 
 ## ',' delimiter is recognized by excel.
 ## This will make a csv file in your working directory
+## You will get an error if ou have the .csv file open while running this script.
 '''
 with open('eggs.csv', 'wb') as csvfile:
     spamwriter = csv.writer(csvfile, delimiter = ',',
@@ -75,6 +76,11 @@ with open('LUCourses.csv', 'wb') as csvfile:
         page = html.fromstring(urllib.urlopen(url).read())
 
         data = page.xpath('//tr/td//text()')
+        data = filter(lambda space: space != '\n', data)
+        for i in range(len(data)):
+            if data[i] == 'BOOKS ':
+                data.insert(i+1,'\n')
+                
         writer = csv.writer(csvfile, delimiter = ',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
         writer.writerow(data)
 
