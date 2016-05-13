@@ -1,0 +1,33 @@
+<template name="UserCourseEntry">
+
+    <h3>First Year Courses</h3>
+
+    <h3>Second Year Courses</h3>
+
+    <h3>Third Year Courses</h3>
+
+    <h3>Fourth Year Courses</h3>
+
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#selection" style="margin-bottom: 20px">
+    Add a Course Manually
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="selection" tabindex="-1" role="dialog" aria-labelledby="selectionLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="selectionLabel">Course Details: </h4>
+                </div>
+
+                <div class="modal-body">
+                    {{> quickForm collection= "LUCourses" id="insertluCoursesForm" type="insert" class="new-course-form"}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</template>

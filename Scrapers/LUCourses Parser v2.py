@@ -55,7 +55,7 @@ with open('LUCourses.csv', 'wb') as csvfile:
     for url in urls:
         print "Working on..." + url
         #generate csv writer
-        writer = csv.writer(csvfile, delimiter = ',', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
+        writer = csv.writer(csvfile, delimiter = ',', quotechar = '"', quoting = csv.QUOTE_MINIMAL)
         
         #grab html from url.
         response = urllib2.urlopen(url)
@@ -84,11 +84,17 @@ with open('LUCourses.csv', 'wb') as csvfile:
                 if (parsedCourse[0].text == '0.5' or parsedCourse[0].text == '1.0'):
                     CourseDescs.append('none')    
                     CourseCredits.append(parsedCourse[0].text)
-                    CoursePrereqs.append(parsedCourse[1].text)
+                    if not(parsedCourse[1].text[0].isdigit()): #if the first character is not a number:
+                        CoursePrereqs.append(parsedCourse[1].text)
+                    else:
+                        CoursePrereqs.append('none')
                 else:
                     CourseDescs.append(parsedCourse[0].text)
                     CourseCredits.append(parsedCourse[1].text)
-                    CoursePrereqs.append(parsedCourse[2].text)
+                    if not(parsedCourse[2].text[0].isdigit()): #if the first character is not a number:
+                        CoursePrereqs.append(parsedCourse[2].text)
+                    else:
+                        CoursePrereqs.append('none')
             else:
                 CourseDescs.append('error')
                 CourseCredits.append('error')
